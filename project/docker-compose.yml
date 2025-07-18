@@ -1,0 +1,29 @@
+services:
+  nginx-proxy:
+    image: nginx:alpine
+    container_name: nginx-proxy
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
+    depends_on:
+      - react-app
+      - php-app
+
+  react-app:
+    build: ./react-app
+    container_name: react-app
+    expose:
+      - "80"
+
+  php-app:
+    build: ./php-app
+    container_name: php-app
+    expose:
+      - "80"
+  
+  java-app:
+    build: ./java-app
+    container_name: java-app
+    expose:
+      - "8080"
